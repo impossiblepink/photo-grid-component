@@ -1,0 +1,26 @@
+<!-- This one has our church's classes; be sure to replace them with your own. (color-white btn) -->
+
+<div class="container-fluid">
+    <div class="row color-white text-center d-flex flex-wrap" style="font-weight:500;">
+
+        {% for item in Items %}
+            {% assign gridNumber = forloop.length %}
+            {%- assign gridImage = item | Attribute:'Image','RawValue' -%}
+            {%- assign gridTitle = item.Title -%}
+            {%- assign gridContent = item.Content -%}
+            {%- assign btnLink = item | Attribute:'LinkOne' -%}
+            {%- assign btnText = item | Attribute:'LinkOneText' -%}
+            {%- assign linkOneNewWindow = item | Attribute:'LinkOneNewWindow','Object' -%}
+        
+            <div class="{% if gridNumber == 8 %} col-md-3 image-card-height-eight {% elseif gridNumber == 6 %} col-md-4 image-card-height {% else %} col-md-6 image-card-height {% endif %} col-sm-6  col-xs-12 image-card-heigh image-card-hover d-flex" style="background-image:url('/GetImage.ashx?guid={{ gridImage }}');">
+                <div class="card-body h-100 d-flex flex-column justify-content-center align-items-center">
+                    <h3 class="color-white">{{ gridTitle }}</h3>
+                    <p class="color-white">{{ gridContent }}</p>
+                    {% if btnLink != "" and btnLink != "null" %}
+                        <a class="btn bg-white" href="{{ btnLink }}" {% if linkOneNewWindow contains 'Yes' %}target="_blank" rel="nofollow"{% endif %}>{{ btnText }}</a>    
+                    {% endif %}
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+</div>
