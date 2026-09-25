@@ -1,0 +1,108 @@
+<!-- wrap this in <style> tags and add it to the component template -->
+
+.color-white {
+    color:#fff;
+}
+
+/* sets the base height of image rows */
+.image-card-height {
+    min-height: 28vw;
+}
+
+/* reduces base height of image rows if there are 8 images */
+.image-card-height-eight {
+    min-height: 24vw;
+}
+
+.image-card-hover {
+    background-size: cover;
+    background-position: center top;
+    position: relative;
+    overflow: hidden;
+    filter: grayscale(100%);
+    transition: filter 0.3s ease;
+
+}
+
+/* image overlay – darkens photos */
+.image-card-hover::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: rgba(0,0,0,0.6);
+    z-index: 1;
+    transition: background 0.3s ease;
+}
+
+.image-card-hover .card-body {
+    position: relative;
+    z-index: 2;
+}
+
+
+/* *** DESKTOP ONLY – adds greyscale to color hover effect *** */
+
+@media (hover: hover) and (pointer: fine) {
+
+    .image-card-hover:hover {
+        filter: grayscale(0%);
+    }
+    
+    /* image overlay – darkens photos – less */
+    .image-card-hover:hover::before {
+        background: rgba(0,0,0,0.4);
+    }
+
+}
+
+/* *** MOBILE ONLY – absolutley stops all tap/hover/active/focus/before/after states on mobile *** */
+/* *** sets MOBILE up for the greyscale to color scroll effect */
+
+@media (max-width: 768px) {
+
+/* adjust the base height of image rows */
+    .image-card-height-eight {
+    min-height: 30vh;
+    }
+/* adjust the base height of image rows if there are 8 images */    
+    .image-card-height {
+        min-height: 32vh;
+    }
+
+    .image-card-hover {
+        /* FORCE default state */
+        filter: grayscale(100%) !important;
+    }
+
+    .image-card-hover::before {
+        background: rgba(0,0,0,0.6) !important;
+    }
+
+    /* Prevent tap/interaction states */
+    .image-card-hover:hover,
+    .image-card-hover:active,
+    .image-card-hover:focus {
+        filter: grayscale(100%) !important;
+    }
+
+    .image-card-hover:hover::before,
+    .image-card-hover:active::before,
+    .image-card-hover:focus::before {
+        background: rgba(0,0,0,0.6) !important;
+    }
+
+    /* ONLY allow color via JS */
+    .image-card-hover.active {
+        filter: grayscale(0%) !important;
+    }
+
+    .image-card-hover.active::before {
+        background: rgba(0,0,0,0.4) !important;
+    }
+
+    /* Optional: remove tap highlight flash */
+    .image-card-hover {
+        -webkit-tap-highlight-color: transparent;
+    }
+
+}
